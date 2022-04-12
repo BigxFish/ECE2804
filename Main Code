@@ -8,8 +8,7 @@ Adafruit_SSD1306 display(128, 64);
 
 
 // real and imag vectors
-int8_t data[128];
-int8_t im[128];
+
 
 /*
   The purpose for this function is to create the bar graph's parts that only need to be set once
@@ -56,9 +55,10 @@ void set_Graph() {
 */
 
 void analog_Loop(){
+  
+  int8_t data[128];
+  int8_t im[128];
 
-  //Setting global constants so that the values can be referenced within multiple functions.
-  //This works better than returning values because a function can only return 1 value
   //Delta Waves
   float power_D = 0;                                //Power Value for delta Wave
   
@@ -123,7 +123,7 @@ void analog_Loop(){
   }
   
     power_D = (power_D/3);
-    power_D = ((power_D*128)*5/1024);
+    power_D = ((power_D*256)*5/1024);
     power_D = power_D * power_D;
 
 
@@ -131,7 +131,7 @@ void analog_Loop(){
     power_T += data[i];
   }
     power_T = (power_T/4);
-    power_T = ((power_T*128)*5/1024);
+    power_T = ((power_T*256)*5/1024);
     power_T = power_T * power_T;
 
 
@@ -139,7 +139,7 @@ void analog_Loop(){
     power_A += data[i];
   }
     power_A = (power_A/4);
-    power_A = ((power_A*128)*5/1024);
+    power_A = ((power_A*256)*5/1024);
     power_A = power_A * power_A;
 
 
@@ -194,6 +194,7 @@ void loop_Call(float power_D, float power_T, float power_A){
   display.drawLine(16,24,97,24, WHITE);
   display.drawLine(16,34,97,34, WHITE);
   display.drawLine(16,44,97,44, WHITE);
+
 }
 
 void setup() {
